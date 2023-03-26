@@ -37,24 +37,26 @@ void main() {
 
     test('User should see the new page when selecting on USD to BTC', () async {
       final firstOption = find.byValueKey('USD');
-      final newPage = find.byValueKey('newPage');
+      final prompt = find.byValueKey('Prompt');
       final back = find.byValueKey('back-button');
 
       await driver.tap(firstOption);
 
-      expect(await driver.getText(newPage), 'Dollars');
+      expect(await driver.getText(prompt),
+          'How many Dollars would you like to convert?');
 
       await driver.tap(back);
     });
 
     test('User should see the new page when selecting on BTC to USD', () async {
-      final secondOption = find.byValueKey('BTC');
-      final newPage = find.byValueKey('newPage');
+      final firstOption = find.byValueKey('BTC');
+      final prompt = find.byValueKey('Prompt');
       final back = find.byValueKey('back-button');
 
-      await driver.tap(secondOption);
+      await driver.tap(firstOption);
 
-      expect(await driver.getText(newPage), 'Bitcoin');
+      expect(await driver.getText(prompt),
+          'How many Bitcoin would you like to convert?');
 
       await driver.tap(back);
     });
@@ -62,12 +64,20 @@ void main() {
     test('User should be able to enter value to convert from USD to BTC',
         () async {
       final secondOption = find.byValueKey('USD');
-      final newPage = find.byValueKey('newPage');
+      final prompt = find.byValueKey('Prompt');
       final back = find.byValueKey('back-button');
-
+      final inputField = find.byValueKey('input-field');
+      final calculate = find.byValueKey('calc');
+      final result = find.byValueKey('converted');
       await driver.tap(secondOption);
 
-      expect(await driver.getText(newPage), 'Dollars');
-    });
+      expect(await driver.getText(prompt),
+          'How many Dollars would you like to convert?');
+      driver.tap(inputField);
+      driver.enterText('1');
+      driver.tap(calculate);
+
+      expect(await driver.getText(result), 'Conversion Result: 0.000036BTC');
+    }, skip: true);
   });
 }

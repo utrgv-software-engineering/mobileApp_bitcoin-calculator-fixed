@@ -61,7 +61,10 @@ class _USDConversionState extends State<USDConversion> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('How many ${widget.selection} would you like to convert?'),
+          Text(
+            'How many ${widget.selection} would you like to convert?',
+            key: Key('Prompt'),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: TextField(
@@ -83,7 +86,10 @@ class _USDConversionState extends State<USDConversion> {
               },
               key: Key('calc'),
               child: Text('Calculate')),
-          Text('Conversion Result: ' + result)
+          Text(
+            'Conversion Result: ' + result,
+            key: Key('converted'),
+          )
         ],
       ),
     );

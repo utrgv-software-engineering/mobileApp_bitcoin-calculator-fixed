@@ -80,22 +80,30 @@ class _USDConversionState extends State<USDConversion> {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: TextField(
               keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[],
               key: Key('input-field'),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
               ),
               onChanged: (value) {
-                button = _validateTextField(value);
-                var temp = int.parse(value);
-                pesos = temp.toDouble();
-                //print(pesos);
+                setState(() {
+                  if (value.isEmpty) {
+                    button = false;
+                  } else {
+                    button = _validateTextField(value);
+                    var temp = double.parse(value);
+                    pesos = temp.toDouble();
+                  }
+                });
               },
             ),
           ),
           ElevatedButton(
-              onPressed: () {
-                setst8();
-              },
+              onPressed: button
+                  ? () {
+                      setst8();
+                    }
+                  : null,
               key: Key('calc'),
               child: Text('Calculate')),
           Text(

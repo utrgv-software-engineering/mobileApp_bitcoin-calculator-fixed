@@ -1,3 +1,4 @@
+import 'package:bitcoin_calculator/usdConversion.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -22,6 +23,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String selection = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +37,15 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
               key: Key('topButton'),
-              onPressed: () {},
+              onPressed: () {
+                selection = 'Dollars';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => USDConversion(
+                              selection: selection,
+                            )));
+              },
               child: Text(
                 'USD to BTC',
                 key: Key('USD'),
@@ -42,7 +53,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(
               key: Key('botButton'),
-              onPressed: () {},
+              onPressed: () {
+                selection = 'Bitcoin';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => USDConversion(
+                              selection: selection,
+                            )));
+              },
               child: Text(
                 'BTC to USD',
                 key: Key('BTC'),

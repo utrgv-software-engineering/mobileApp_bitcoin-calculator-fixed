@@ -34,5 +34,15 @@ void main() {
       expect(await driver.getText(firstOption), "USD to BTC");
       expect(await driver.getText(secondOption), "BTC to USD");
     });
+
+    test('User should see the new page when selecting on firstOption',
+        () async {
+      final firstOption = find.byValueKey('USD');
+      final newPage = find.byValueKey('newPage');
+
+      await driver.tap(firstOption);
+
+      expect(await driver.getText(newPage), 'New PAGE');
+    });
   });
 }

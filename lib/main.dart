@@ -1,3 +1,4 @@
+import 'package:bitcoin_calculator/usdConversion.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -22,13 +23,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  String selection = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,27 +35,40 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            ElevatedButton(
+              key: Key('topButton'),
+              onPressed: () {
+                selection = 'Dollars';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => USDConversion(
+                              selection: selection,
+                            )));
+              },
+              child: Text(
+                'USD to BTC',
+                key: Key('USD'),
+              ),
             ),
-            Text(
-              '$_counter',
-              // Provide a Key to this specific Text widget. This allows
-              // identifying the widget from inside the test suite,
-              // and reading the text.
-              key: Key('counter'),
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            ElevatedButton(
+              key: Key('botButton'),
+              onPressed: () {
+                selection = 'Bitcoin';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => USDConversion(
+                              selection: selection,
+                            )));
+              },
+              child: Text(
+                'BTC to USD',
+                key: Key('BTC'),
+              ),
+            )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        // Provide a Key to this button. This allows finding this
-        // specific button inside the test suite, and tapping it.
-        key: Key('increment'),
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

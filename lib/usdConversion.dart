@@ -31,11 +31,22 @@ class _USDConversionState extends State<USDConversion> {
     if (value.isEmpty) {
       return false;
     }
-    int currency = int.tryParse(value);
+    double currency = double.tryParse(value);
     if (currency != null && currency > 0) {
       return true;
     }
     return false;
+  }
+
+  void setst8() {
+    setState(() {
+      if (widget.selection == "Dollars") {
+        result = CalculationTools.USDtoBTC(pesos);
+      } else if (widget.selection == "Bitcoin") {
+        result = CalculationTools.BCTtoUSD(pesos);
+      }
+      return result;
+    });
   }
 
   @override
@@ -74,15 +85,16 @@ class _USDConversionState extends State<USDConversion> {
                 border: OutlineInputBorder(),
               ),
               onChanged: (value) {
-                pesos = double.parse(value);
+                button = _validateTextField(value);
+                var temp = int.parse(value);
+                pesos = temp.toDouble();
+                //print(pesos);
               },
             ),
           ),
           ElevatedButton(
               onPressed: () {
-                if (widget.selection == "Dollars") {
-                  result = CalculationTools.USDtoBTC(pesos);
-                }
+                setst8();
               },
               key: Key('calc'),
               child: Text('Calculate')),

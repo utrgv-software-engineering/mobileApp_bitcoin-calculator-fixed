@@ -35,14 +35,39 @@ void main() {
       expect(await driver.getText(secondOption), "BTC to USD");
     });
 
-    test('User should see the new page when selecting on firstOption',
-        () async {
+    test('User should see the new page when selecting on USD to BTC', () async {
       final firstOption = find.byValueKey('USD');
       final newPage = find.byValueKey('newPage');
+      final back = find.byValueKey('back-button');
 
       await driver.tap(firstOption);
 
-      expect(await driver.getText(newPage), 'New PAGE');
+      expect(await driver.getText(newPage), 'Dollars');
+
+      await driver.tap(back);
+    });
+
+    test('User should see the new page when selecting on BTC to USD', () async {
+      final secondOption = find.byValueKey('BTC');
+      final newPage = find.byValueKey('newPage');
+      final back = find.byValueKey('back-button');
+
+      await driver.tap(secondOption);
+
+      expect(await driver.getText(newPage), 'Bitcoin');
+
+      await driver.tap(back);
+    });
+
+    test('User should be able to enter value to convert from USD to BTC',
+        () async {
+      final secondOption = find.byValueKey('USD');
+      final newPage = find.byValueKey('newPage');
+      final back = find.byValueKey('back-button');
+
+      await driver.tap(secondOption);
+
+      expect(await driver.getText(newPage), 'Dollars');
     });
   });
 }

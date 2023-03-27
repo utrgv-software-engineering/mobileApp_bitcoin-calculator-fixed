@@ -34,18 +34,15 @@ class _USDConversionState extends State<USDConversion> {
   }
 
   bool _validateTextField(String value) {
-    setState(() {
-      if (value.isEmpty) {
-        return false;
-      }
+    if (value.isEmpty) {
+      return false;
+    }
 
-      double currency = double.tryParse(value);
-      if (currency != null && currency > 0) {
-        return true;
-      } else {
-        throw ('Enter a value greater than 0');
-      }
-    });
+    double currency = double.tryParse(value);
+    if (currency != null && currency > 0) {
+      return true;
+    }
+    return false;
   }
 
   TextInputFormatter allowDigitsAndDecimal({int decimalRange}) =>
@@ -115,7 +112,11 @@ class _USDConversionState extends State<USDConversion> {
           ElevatedButton(
               onPressed: button
                   ? () {
-                      setst8();
+                      if (pesos == '0') {
+                        throw ('Test');
+                      } else {
+                        setst8();
+                      }
                     }
                   : null,
               key: Key('calc'),

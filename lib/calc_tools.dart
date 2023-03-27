@@ -1,12 +1,12 @@
 class CalculationTools {
-  static String USDtoBTC(double money) {
-    double conv = money * 0.000036;
+  static String USDtoBTC(String money) {
+    double conv = double.parse(money) * 0.000036;
     String result = conv.toString() + 'BTC';
     return result;
   }
 
-  static String BCTtoUSD(double coin) {
-    double conv = coin * 27626.80;
+  static String BCTtoUSD(String coin) {
+    double conv = double.parse(coin) * 27626.80;
     String result = conv.toStringAsFixed(2) + 'USD';
     return result;
   }

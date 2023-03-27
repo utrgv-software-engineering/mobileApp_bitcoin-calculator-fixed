@@ -15,8 +15,14 @@ class _USDConversionState extends State<USDConversion> {
   bool button = false;
   int userInput = 0;
   String result = '';
+  //bool check = null;
+  String pesos = '';
 
-  double pesos = 0;
+  // void checkF(){
+  //   if(widget.selection == "Dollars"){
+  //     check
+  //   }
+  // }
 
   void initState() {
     super.initState();
@@ -28,15 +34,23 @@ class _USDConversionState extends State<USDConversion> {
   }
 
   bool _validateTextField(String value) {
-    if (value.isEmpty) {
-      return false;
-    }
-    double currency = double.tryParse(value);
-    if (currency != null && currency > 0) {
-      return true;
-    }
-    return false;
+    setState(() {
+      if (value.isEmpty) {
+        return false;
+      }
+
+      double currency = double.tryParse(value);
+      if (currency != null && currency > 0) {
+        return true;
+      } else {
+        throw ('Enter a value greater than 0');
+      }
+    });
   }
+
+  TextInputFormatter allowDigitsAndDecimal({int decimalRange}) =>
+      FilteringTextInputFormatter.allow(
+          RegExp(r'^\d*\.?\d{0,' + (decimalRange?.toString() ?? '') + r'}'));
 
   void setst8() {
     setState(() {
@@ -79,8 +93,8 @@ class _USDConversionState extends State<USDConversion> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: TextField(
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[],
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: [],
               key: Key('input-field'),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -91,8 +105,8 @@ class _USDConversionState extends State<USDConversion> {
                     button = false;
                   } else {
                     button = _validateTextField(value);
-                    var temp = double.parse(value);
-                    pesos = temp.toDouble();
+
+                    pesos = value;
                   }
                 });
               },

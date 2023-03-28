@@ -7,8 +7,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Counter App',
-      home: MyHomePage(title: 'Counter App Home Page'),
+      title: 'Bitcoin Converter',
+      home: MyHomePage(title: 'Bitcoin Converter'),
     );
   }
 }
@@ -35,52 +35,65 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-              key: Key('topButton'),
-              onPressed: () {
-                selection = 'Dollars';
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => USDConversion(
-                              selection: selection,
-                            )));
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+            SizedBox(
+              height: 75,
+              width: 250,
+              child: ElevatedButton(
+                key: Key('topButton'),
+                onPressed: () {
+                  selection = 'Dollars';
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => USDConversion(
+                                selection: selection,
+                              )));
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
-                textStyle: TextStyle(
-                  fontSize: 20,
+                child: Text(
+                  'USD to BTC',
+                  style: TextStyle(fontSize: 30),
+                  key: Key('USD'),
                 ),
-              ),
-              child: Text(
-                'USD to BTC',
-                key: Key('USD'),
               ),
             ),
-            ElevatedButton(
-              key: Key('botButton'),
-              onPressed: () {
-                selection = 'Bitcoin';
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => USDConversion(
-                              selection: selection,
-                            )));
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+            SizedBox(height: 30),
+            SizedBox(
+              height: 75,
+              width: 250,
+              child: ElevatedButton(
+                key: Key('botButton'),
+                onPressed: () {
+                  selection = 'Bitcoin';
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => USDConversion(
+                                selection: selection,
+                              )));
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
-                textStyle: TextStyle(
-                  fontSize: 20,
+                child: Text(
+                  'BTC to USD',
+                  style: TextStyle(fontSize: 30),
+                  key: Key('BTC'),
                 ),
-              ),
-              child: Text(
-                'BTC to USD',
-                key: Key('BTC'),
               ),
             )
           ],

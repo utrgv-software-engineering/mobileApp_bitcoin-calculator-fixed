@@ -69,24 +69,26 @@ class _USDConversionState extends State<USDConversion> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          iconTheme: IconThemeData(color: Color(0xFF4C748B)),
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              key: Key('back-button'),
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            key: Key('back-button'),
           ),
-          backgroundColor: Colors.transparent),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             'How many ${widget.selection} would you like to convert?',
+            style: TextStyle(fontSize: 18),
             key: Key('Prompt'),
           ),
+          SizedBox(height: 5),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
             child: TextField(
@@ -124,9 +126,12 @@ class _USDConversionState extends State<USDConversion> {
                     }
                   : null,
               key: Key('calc'),
-              child: Text('Calculate')),
+              style: ButtonStyle(),
+              child: Text('Calculate', style: TextStyle(fontSize: 15))),
+          SizedBox(height: 25),
           Text(
             'Conversion Result: ' + result,
+            style: TextStyle(fontSize: 18),
             key: Key('converted'),
           )
         ],

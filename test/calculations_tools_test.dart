@@ -16,7 +16,7 @@ void main() {
     });
 
     test('throws ArgumentError on negative number', () {
-      expect(() => CalculationTools.USDtoBTC('0'), throwsArgumentError);
+      expect(() => CalculationTools.USDtoBTC('-1'), throwsArgumentError);
     });
   });
   group('Bitcoin to dollars conversion', () {
@@ -33,7 +33,7 @@ void main() {
     });
 
     test('throws ArgumentError on negative number', () {
-      expect(() => CalculationTools.BCTtoUSD('0'), throwsArgumentError);
+      expect(() => CalculationTools.BCTtoUSD('-1'), throwsArgumentError);
     });
   });
 }

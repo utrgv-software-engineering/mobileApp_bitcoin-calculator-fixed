@@ -46,6 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               selection: selection,
                             )));
               },
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                textStyle: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
               child: Text(
                 'USD to BTC',
                 key: Key('USD'),
@@ -62,6 +70,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               selection: selection,
                             )));
               },
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                textStyle: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
               child: Text(
                 'BTC to USD',
                 key: Key('BTC'),

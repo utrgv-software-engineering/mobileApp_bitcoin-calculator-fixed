@@ -60,24 +60,54 @@ void main() {
 
       await driver.tap(back);
     });
+  });
 
-    test('User should be able to enter value to convert from USD to BTC',
-        () async {
-      final secondOption = find.byValueKey('USD');
-      final prompt = find.byValueKey('Prompt');
-      final back = find.byValueKey('back-button');
-      final inputField = find.byValueKey('input-field');
-      final calculate = find.byValueKey('calc');
-      final result = find.byValueKey('converted');
-      await driver.tap(secondOption);
+  group('User entering values to convert should return correct value', () {
+    test(
+      'User should be able to enter value to convert from USD to BTC',
+      () async {
+        final secondOption = find.byValueKey('USD');
+        final prompt = find.byValueKey('Prompt');
+        final back = find.byValueKey('back-button');
+        final inputField = find.byValueKey('input-field');
+        final calculate = find.byValueKey('calc');
 
-      expect(await driver.getText(prompt),
-          'How many Dollars would you like to convert?');
-      driver.tap(inputField);
-      driver.enterText('1');
-      driver.tap(calculate);
+        await driver.tap(secondOption);
 
-      expect(await driver.getText(result), 'Conversion Result: 0.000036BTC');
-    }, skip: true);
+        expect(await driver.getText(prompt),
+            'How many Dollars would you like to convert?');
+        await driver.tap(inputField);
+        await driver.enterText('1');
+        await driver.tap(calculate);
+
+        final result = find.byValueKey('converted');
+
+        expect(await driver.getText(result), 'Conversion Result: 0.000036BTC');
+
+        await driver.tap(back);
+      },
+    );
+    test(
+      'User should be able to enter value to convert from BTC to USD',
+      () async {
+        final secondOption = find.byValueKey('BTC');
+        final prompt = find.byValueKey('Prompt');
+        final back = find.byValueKey('back-button');
+        final inputField = find.byValueKey('input-field');
+        final calculate = find.byValueKey('calc');
+
+        await driver.tap(secondOption);
+
+        expect(await driver.getText(prompt),
+            'How many Bitcoin would you like to convert?');
+        await driver.tap(inputField);
+        await driver.enterText('1');
+        await driver.tap(calculate);
+
+        final result = find.byValueKey('converted');
+
+        expect(await driver.getText(result), 'Conversion Result: 27626.80USD');
+      },
+    );
   });
 }

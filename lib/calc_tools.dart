@@ -1,12 +1,20 @@
 class CalculationTools {
   static String USDtoBTC(String money) {
-    double conv = double.parse(money) * 0.000036;
+    double dMoney = double.parse(money);
+    if (dMoney <= 0) {
+      throw ArgumentError();
+    }
+    double conv = dMoney * 0.000036;
     String result = conv.toString() + 'BTC';
     return result;
   }
 
   static String BCTtoUSD(String coin) {
-    double conv = double.parse(coin) * 27626.80;
+    double dCoin = double.parse(coin);
+    if (dCoin <= 0) {
+      throw ArgumentError();
+    }
+    double conv = dCoin * 27626.80;
     String result = conv.toStringAsFixed(2) + 'USD';
     return result;
   }

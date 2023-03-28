@@ -88,13 +88,16 @@ class _USDConversionState extends State<USDConversion> {
             key: Key('Prompt'),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
             child: TextField(
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [],
               key: Key('input-field'),
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Color(0xFF4C748B)),
+                ),
               ),
               onChanged: (value) {
                 setState(() {
@@ -112,8 +115,9 @@ class _USDConversionState extends State<USDConversion> {
           ElevatedButton(
               onPressed: button
                   ? () {
-                      if (pesos == '0') {
-                        throw ('Test');
+                      if (double.parse(pesos) < 0.01) {
+                        throw ArgumentError(
+                            'Value cannot be less then or equal to 0');
                       } else {
                         setst8();
                       }

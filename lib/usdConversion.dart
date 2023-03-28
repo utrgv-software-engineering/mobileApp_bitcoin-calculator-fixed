@@ -15,8 +15,14 @@ class _USDConversionState extends State<USDConversion> {
   bool button = false;
   int userInput = 0;
   String result = '';
+  //bool check = null;
+  String pesos = '';
 
-  double pesos = 0;
+  // void checkF(){
+  //   if(widget.selection == "Dollars"){
+  //     check
+  //   }
+  // }
 
   void initState() {
     super.initState();
@@ -31,11 +37,27 @@ class _USDConversionState extends State<USDConversion> {
     if (value.isEmpty) {
       return false;
     }
-    int currency = int.tryParse(value);
+
+    double currency = double.tryParse(value);
     if (currency != null && currency > 0) {
       return true;
     }
     return false;
+  }
+
+  TextInputFormatter allowDigitsAndDecimal({int decimalRange}) =>
+      FilteringTextInputFormatter.allow(
+          RegExp(r'^\d*\.?\d{0,' + (decimalRange?.toString() ?? '') + r'}'));
+
+  void setst8() {
+    setState(() {
+      if (widget.selection == "Dollars") {
+        result = CalculationTools.USDtoBTC(pesos);
+      } else if (widget.selection == "Bitcoin") {
+        result = CalculationTools.BCTtoUSD(pesos);
+      }
+      return result;
+    });
   }
 
   @override
@@ -66,24 +88,41 @@ class _USDConversionState extends State<USDConversion> {
             key: Key('Prompt'),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
             child: TextField(
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: [],
               key: Key('input-field'),
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Color(0xFF4C748B)),
+                ),
               ),
               onChanged: (value) {
-                pesos = double.parse(value);
+                setState(() {
+                  if (value.isEmpty) {
+                    button = false;
+                  } else {
+                    button = _validateTextField(value);
+
+                    pesos = value;
+                  }
+                });
               },
             ),
           ),
           ElevatedButton(
-              onPressed: () {
-                if (widget.selection == "Dollars") {
-                  result = CalculationTools.USDtoBTC(pesos);
-                }
-              },
+              onPressed: button
+                  ? () {
+                      if (double.parse(pesos) < 0.01) {
+                        throw ArgumentError(
+                            'Value cannot be less then or equal to 0');
+                      } else {
+                        setst8();
+                      }
+                    }
+                  : null,
               key: Key('calc'),
               child: Text('Calculate')),
           Text(

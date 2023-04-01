@@ -4,12 +4,12 @@ import 'dart:convert';
 class CalculationTools {
   static Future<String> fetchConversion(http.Client client) async {
     var url =
-        Uri.parse(' https://api.coindesk.com/v1/bpi/currentprice/usd.json');
+        Uri.parse('https://api.coindesk.com/v1/bpi/currentprice/usd.json');
     final response = await client.get(url);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
-      return json["value"];
+      return json["bpi{USD{rate}}"];
     } else {
       throw Exception('Failed to load conversion rate.');
     }

@@ -1,7 +1,6 @@
 import 'package:bitcoin_calculator/usdConversion.dart';
 import 'package:flutter/material.dart';
 import 'calc_tools.dart';
-//import 'package:http/http.dart' as http;
 
 void main() => runApp(MyApp());
 
@@ -26,13 +25,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String selection = '';
-  Future<String> conversion;
-
-  @override
-  void initState() {
-    super.initState();
-    conversion = CalculationTools.fetchConversion();
-  }
 
   @override
   Widget build(BuildContext context) {

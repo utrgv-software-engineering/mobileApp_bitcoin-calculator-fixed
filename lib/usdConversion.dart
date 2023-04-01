@@ -1,6 +1,7 @@
 import 'package:bitcoin_calculator/calc_tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class USDConversion extends StatefulWidget {
   @override
@@ -15,15 +16,11 @@ class _USDConversionState extends State<USDConversion> {
   bool button = false;
   int userInput = 0;
   String result = '';
-  //bool check = null;
   String pesos = '';
 
-  // void checkF(){
-  //   if(widget.selection == "Dollars"){
-  //     check
-  //   }
-  // }
+  Future<String> conversion;
 
+  @override
   void initState() {
     super.initState();
     textController.addListener(() {
@@ -31,6 +28,7 @@ class _USDConversionState extends State<USDConversion> {
         button = textController.text.isNotEmpty;
       });
     });
+    conversion = CalculationTools.fetchConversion(http.Client());
   }
 
   bool _validateTextField(String value) {
@@ -129,10 +127,17 @@ class _USDConversionState extends State<USDConversion> {
               style: ButtonStyle(),
               child: Text('Calculate', style: TextStyle(fontSize: 15))),
           SizedBox(height: 25),
-          Text(
-            'Conversion Result: ' + result,
-            style: TextStyle(fontSize: 18),
-            key: Key('converted'),
+          FutureBuilder<String>(
+            future: conversion,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                String converted = snapshot.data;
+                return Text(converted);
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              return CircularProgressIndicator();
+            },
           )
         ],
       ),

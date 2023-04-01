@@ -139,6 +139,11 @@ class _USDConversionState extends State<USDConversion> {
               return CircularProgressIndicator();
             },
           )
+          // Text(
+          //   'Conversion Result: ' + result,
+          //   style: TextStyle(fontSize: 18),
+          //   key: Key('converted'),
+          // )
         ],
       ),
     );

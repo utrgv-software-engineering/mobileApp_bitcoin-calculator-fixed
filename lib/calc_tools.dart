@@ -9,7 +9,7 @@ class CalculationTools {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
-      return json["bpi{USD{rate}}"];
+      return json["bpi"]["USD"]["rate"];
     } else {
       throw Exception('Failed to load conversion rate.');
     }

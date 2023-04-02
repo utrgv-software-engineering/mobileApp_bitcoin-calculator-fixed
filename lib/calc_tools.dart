@@ -27,17 +27,50 @@ class CalculationTools {
     return result;
   }
 
-  static Future<String> BCTtoUSD(String coin) async {
-    double dCoin = double.parse(coin);
+  static String BCTtoUSD(String coin, String converted) {
+    String temp = coin;
+    double dCoin = double.parse(temp);
     if (dCoin <= 0) {
       throw ArgumentError();
     }
-    String rate = await fetchConversion(http.Client());
-    double conv = dCoin * double.parse(rate);
+
+    //String rate = fetchConversion(http.Client());
+    double conv;
+    try {
+      conv = dCoin * double.parse(converted);
+    } on FormatException catch (e) {
+      // handle the exception here, e.g. set a default value
+      conv = 0.0;
+      print('Error: ${e.toString()}');
+    }
+
     String result = conv.toStringAsFixed(2) + 'USD';
     return result;
   }
+
+  // static const String bitcoinApiUrl =
+  //     'https://api.coindesk.com/v1/bpi/currentprice/usd.json';
+
+  // static Future<String> BCTtoUSD(String coin) async {
+  //   double dCoin = double.parse(coin);
+  //   if (dCoin <= 0) {
+  //     throw ArgumentError('Coin value must be greater than 0.');
+  //   }
+
+  //   final response = await http.get(Uri.parse(bitcoinApiUrl));
+  //   if (response.statusCode == 200) {
+  //     final json = jsonDecode(response.body);
+  //     final rate = double.parse(json['bpi']['USD']['rate'].replaceAll(',', ''));
+  //     final conv = dCoin * rate;
+  //     final result = conv.toStringAsFixed(2) + ' USD';
+  //     return result;
+  //   } else {
+  //     throw Exception('Failed to load conversion rate: ${response.statusCode}');
+  //   }
+  // }
 }
+
+
 
 // 1 dollar = 0.000036BTC
 // 1 bitcoin = 27,626.80

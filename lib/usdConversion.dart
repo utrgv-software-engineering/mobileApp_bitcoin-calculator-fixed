@@ -19,6 +19,7 @@ class _USDConversionState extends State<USDConversion> {
   int userInput = 0;
   String result = '';
   String pesos = '';
+  String converted = '';
 
   Future<String> conversion;
 
@@ -54,7 +55,7 @@ class _USDConversionState extends State<USDConversion> {
       if (widget.selection == "Dollars") {
         result = CalculationTools.USDtoBTC(pesos);
       } else if (widget.selection == "Bitcoin") {
-        result = CalculationTools.BCTtoUSD(pesos) as String;
+        result = CalculationTools.BCTtoUSD(pesos, converted);
       }
       return result;
     });
@@ -129,24 +130,24 @@ class _USDConversionState extends State<USDConversion> {
               style: ButtonStyle(),
               child: Text('Calculate', style: TextStyle(fontSize: 15))),
           SizedBox(height: 25),
-          // FutureBuilder<String>(
-          //   key: Key('API'),
-          //   future: conversion,
-          //   builder: (context, snapshot) {
-          //     if (snapshot.hasData) {
-          //       String converted = snapshot.data;
-          //       return Text(converted);
-          //     } else if (snapshot.hasError) {
-          //       return Text("${snapshot.error}");
-          //     }
-          //     return CircularProgressIndicator();
-          //   },
-          // )
-          Text(
-            'Conversion Result: ' + result,
-            style: TextStyle(fontSize: 18),
-            key: Key('converted'),
+          FutureBuilder<String>(
+            key: Key('API'),
+            future: conversion,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                converted = snapshot.data;
+                return Text(converted);
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              return CircularProgressIndicator();
+            },
           )
+          // Text(
+          //   'Conversion Result: ' + result,
+          //   style: TextStyle(fontSize: 18),
+          //   key: Key('converted'),
+          // )
         ],
       ),
     );

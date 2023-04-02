@@ -1,6 +1,7 @@
 import 'package:bitcoin_calculator/calc_tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'api_call.dart';
 import 'package:http/http.dart' as http;
 
 import 'config/globals.dart';
@@ -55,7 +56,7 @@ class _USDConversionState extends State<USDConversion> {
       if (widget.selection == "Dollars") {
         result = CalculationTools.USDtoBTC(pesos);
       } else if (widget.selection == "Bitcoin") {
-        result = CalculationTools.BCTtoUSD(pesos, converted);
+        result = CalculationTools.BCTtoUSD(pesos, getPrice);
       }
       return result;
     });

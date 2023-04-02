@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'api_call.dart';
 import 'config/globals.dart';
 
 class CalculationTools {
@@ -27,25 +27,18 @@ class CalculationTools {
     return result;
   }
 
-  static String BCTtoUSD(String coin, String converted) {
+  static String BCTtoUSD(String coin, price) {
     String temp = coin;
     double dCoin = double.parse(temp);
-    if (dCoin <= 0) {
-      throw ArgumentError();
-    }
+    double test = dCoin * price;
+
+    test = double.parse((test).toStringAsFixed(2));
+
+    String usd = test.toString();
+
+    return usd;
 
     //String rate = fetchConversion(http.Client());
-    double conv;
-    try {
-      conv = dCoin * double.parse(converted);
-    } on FormatException catch (e) {
-      // handle the exception here, e.g. set a default value
-      conv = 0.0;
-      print('Error: ${e.toString()}');
-    }
-
-    String result = conv.toStringAsFixed(2) + 'USD';
-    return result;
   }
 
   // static const String bitcoinApiUrl =

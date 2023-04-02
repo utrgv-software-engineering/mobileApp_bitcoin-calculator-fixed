@@ -27,12 +27,13 @@ class CalculationTools {
     return result;
   }
 
-  static String BCTtoUSD(String coin) {
+  static Future<String> BCTtoUSD(String coin) async {
     double dCoin = double.parse(coin);
     if (dCoin <= 0) {
       throw ArgumentError();
     }
-    double conv = dCoin * 0;
+    String rate = await fetchConversion(http.Client());
+    double conv = dCoin * double.parse(rate);
     String result = conv.toStringAsFixed(2) + 'USD';
     return result;
   }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
+import 'config/globals.dart';
+
 class USDConversion extends StatefulWidget {
   @override
   String selection = '';
@@ -28,7 +30,7 @@ class _USDConversionState extends State<USDConversion> {
         button = textController.text.isNotEmpty;
       });
     });
-    conversion = CalculationTools.fetchConversion(http.Client());
+    conversion = CalculationTools.fetchConversion(httpClient);
   }
 
   bool _validateTextField(String value) {
@@ -128,6 +130,7 @@ class _USDConversionState extends State<USDConversion> {
               child: Text('Calculate', style: TextStyle(fontSize: 15))),
           SizedBox(height: 25),
           FutureBuilder<String>(
+            key: Key('API'),
             future: conversion,
             builder: (context, snapshot) {
               if (snapshot.hasData) {

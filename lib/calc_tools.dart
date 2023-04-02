@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'config/globals.dart';
+
 class CalculationTools {
   static Future<String> fetchConversion(http.Client client) async {
     var url =
@@ -30,7 +32,7 @@ class CalculationTools {
     if (dCoin <= 0) {
       throw ArgumentError();
     }
-    double conv = dCoin * 27626.80;
+    double conv = dCoin * 0;
     String result = conv.toStringAsFixed(2) + 'USD';
     return result;
   }

@@ -10,6 +10,8 @@ void main() {
   //   final counterTextFinder = find.byValueKey('counter');
   //   final buttonFinder = find.byValueKey('increment');
 
+  final conversionTextFinder = find.byValueKey('API');
+
   FlutterDriver driver;
 
   // Connect to the Flutter driver before running any tests.
@@ -24,6 +26,12 @@ void main() {
     }
   });
   // });
+
+  group('Bitcoin Conversion API Call', () {
+    test('user inputs a value', () async {
+      expect(await driver.getText(conversionTextFinder), 'Hello, testing');
+    }, skip: true);
+  });
 
   group('Testing if user can see UI elements', () {
     test('User should see options conversion options USD to BTC and BTC to USD',

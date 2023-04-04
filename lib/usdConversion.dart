@@ -139,7 +139,6 @@ class _USDConversionState extends State<USDConversion> {
               if (snapshot.hasData) {
                 converted = snapshot.data;
                 test = snapshot.data.toString();
-                //return Text(CalculationTools.fetchConversion(pesos, test));
                 return Text(
                   'Conversion Result: ' + result,
                   style: TextStyle(fontSize: 18),

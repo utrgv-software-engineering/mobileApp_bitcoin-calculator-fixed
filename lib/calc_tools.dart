@@ -20,63 +20,31 @@ class CalculationTools {
     double dollars = double.parse(pesos);
     double rate = double.parse(price);
 
+    if (dollars <= 0) {
+      throw ArgumentError();
+    }
+
     double conversion = dollars / rate;
 
-    String result = conversion.toString();
-
-    // double dMoney = double.parse(money);
-    // if (dMoney <= 0) {
-    //   throw ArgumentError();
-    // }
-    // double conv = dMoney * 0.000036;
-    // String result = conv.toString() + 'BTC';
-    // return result;
+    String result = conversion.toStringAsFixed(6) + 'BTC';
     return result;
   }
 
   static String BTCtoUSD(String pesos, price) {
-    double temp = double.parse(pesos);
+    double coin = double.parse(pesos);
     double rate = double.parse(price);
 
-    double conversion = temp * rate;
+    if (coin <= 0) {
+      throw ArgumentError();
+    }
 
-    String result = conversion.toString();
+    double conversion = coin * rate;
 
-    // test = double.parse((test).toStringAsFixed(2));
-
-    // String usd = test.toString();
-
+    String result = conversion.toStringAsFixed(2) + 'USD';
     return result;
-
-    //String rate = fetchConversion(http.Client());
   }
-
-  // static const String bitcoinApiUrl =
-  //     'https://api.coindesk.com/v1/bpi/currentprice/usd.json';
-
-  // static Future<String> BCTtoUSD(String coin) async {
-  //   double dCoin = double.parse(coin);
-  //   if (dCoin <= 0) {
-  //     throw ArgumentError('Coin value must be greater than 0.');
-  //   }
-
-  //   final response = await http.get(Uri.parse(bitcoinApiUrl));
-  //   if (response.statusCode == 200) {
-  //     final json = jsonDecode(response.body);
-  //     final rate = double.parse(json['bpi']['USD']['rate'].replaceAll(',', ''));
-  //     final conv = dCoin * rate;
-  //     final result = conv.toStringAsFixed(2) + ' USD';
-  //     return result;
-  //   } else {
-  //     throw Exception('Failed to load conversion rate: ${response.statusCode}');
-  //   }
-  // }
 }
-
-
 
 // 1 dollar = 0.000036BTC
 // 1 bitcoin = 27,626.80
-
 // double num1 = double.parse((12.3412).toStringAsFixed(2));
-// 12.34

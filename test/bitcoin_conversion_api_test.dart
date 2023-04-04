@@ -20,8 +20,8 @@ main() {
 
       //String conversion = await CalculationTools.fetchConversion(client);
       double conversion = await CalculationTools.fetchConversion(client);
-      expect(conversion, isA<String>());
-      expect(conversion, "28,536.0012");
+      expect(conversion, isA<double>());
+      expect(conversion, 28536.0012);
     });
 
     test('throws an exception if the http call completes with an error', () {
@@ -31,7 +31,7 @@ main() {
       when(client.get(url))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(CalculationTools.fetchConversion(client), throwsException);
-    }, skip: true);
+      expect(CalculationTools.fetchConversion(client), isA<Exception>());
+    });
   });
 }

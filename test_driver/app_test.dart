@@ -10,7 +10,7 @@ void main() {
   //   final counterTextFinder = find.byValueKey('counter');
   //   final buttonFinder = find.byValueKey('increment');
 
-  final conversionTextFinder = find.byValueKey('API');
+  // final conversionTextFinder = find.byValueKey('API');
 
   FlutterDriver driver;
 
@@ -27,11 +27,13 @@ void main() {
   });
   // });
 
-  group('Bitcoin Conversion API Call', () {
-    test('user inputs a value', () async {
-      expect(await driver.getText(conversionTextFinder), 'Hello, testing');
-    }, skip: true);
-  });
+  // group('Bitcoin Conversion API Call', () {
+  //   test('user inputs a value', () async {
+  //     expect(await driver.getText(conversionTextFinder), 'Hello, testing');
+  //   }, skip: true);
+  // });
+
+  final conversionTextFinder = find.byValueKey('converted');
 
   group('Testing if user can see UI elements', () {
     test('User should see options conversion options USD to BTC and BTC to USD',
@@ -70,7 +72,9 @@ void main() {
     });
   });
 
-  group('User entering values to convert should return correct value', () {
+  group(
+      'User entering values to convert should return correct value, now with Mockito',
+      () {
     test(
       'User should be able to enter value to convert from USD to BTC',
       () async {
@@ -88,11 +92,10 @@ void main() {
         await driver.enterText('1');
         await driver.tap(calculate);
 
-        final result = find.byValueKey('converted');
+        //final result = find.byValueKey('converted');
 
-        expect(await driver.getText(result), 'Conversion Result: 0.000036BTC');
-
-        await driver.tap(back);
+        expect(await driver.getText(conversionTextFinder),
+            'Conversion Result: 0.000036BTC');
       },
     );
     test(
@@ -103,6 +106,9 @@ void main() {
         final back = find.byValueKey('back-button');
         final inputField = find.byValueKey('input-field');
         final calculate = find.byValueKey('calc');
+        final conversionTextFinder = find.byValueKey('API');
+
+        await driver.tap(back);
 
         await driver.tap(secondOption);
 
@@ -112,9 +118,11 @@ void main() {
         await driver.enterText('1');
         await driver.tap(calculate);
 
-        final result = find.byValueKey('converted');
+        //final result = find.byValueKey('converted');
 
-        expect(await driver.getText(result), 'Conversion Result: 27626.80USD');
+        expect(await driver.getText(conversionTextFinder),
+            'Conversion Result: 27626.80USD');
+        await driver.tap(back);
       },
     );
   });

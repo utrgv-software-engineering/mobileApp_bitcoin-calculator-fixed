@@ -92,12 +92,10 @@ void main() {
         await driver.enterText('1');
         await driver.tap(calculate);
 
-        //final result = find.byValueKey('converted');
-
         expect(await driver.getText(conversionTextFinder),
-            'Conversion Result: 0.000036BTC');
+            'Conversion Result: 0.000035BTC');
+        await driver.tap(back);
       },
-      skip: true,
     );
     test('User should be able to enter value to convert from BTC to USD',
         () async {
@@ -106,9 +104,6 @@ void main() {
       final back = find.byValueKey('back-button');
       final inputField = find.byValueKey('input-field');
       final calculate = find.byValueKey('calc');
-      final conversionTextFinder = find.byValueKey('API');
-
-      await driver.tap(back);
 
       await driver.tap(secondOption);
 
@@ -118,11 +113,9 @@ void main() {
       await driver.enterText('1');
       await driver.tap(calculate);
 
-      //final result = find.byValueKey('converted');
-
       expect(await driver.getText(conversionTextFinder),
-          'Conversion Result: 27626.80USD');
+          'Conversion Result: 28498.91USD');
       await driver.tap(back);
-    }, skip: true);
+    });
   });
 }

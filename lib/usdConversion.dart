@@ -1,6 +1,9 @@
 import 'package:bitcoin_calculator/calc_tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+
+import 'config/globals.dart';
 
 class USDConversion extends StatefulWidget {
   @override
@@ -15,15 +18,14 @@ class _USDConversionState extends State<USDConversion> {
   bool button = false;
   int userInput = 0;
   String result = '';
-  //bool check = null;
   String pesos = '';
+  String test = '';
 
-  // void checkF(){
-  //   if(widget.selection == "Dollars"){
-  //     check
-  //   }
-  // }
+  double converted = 0;
 
+  Future<double> conversion;
+
+  @override
   void initState() {
     super.initState();
     textController.addListener(() {
@@ -31,6 +33,7 @@ class _USDConversionState extends State<USDConversion> {
         button = textController.text.isNotEmpty;
       });
     });
+    conversion = CalculationTools.fetchConversion(httpClient);
   }
 
   bool _validateTextField(String value) {
@@ -52,9 +55,9 @@ class _USDConversionState extends State<USDConversion> {
   void setst8() {
     setState(() {
       if (widget.selection == "Dollars") {
-        result = CalculationTools.USDtoBTC(pesos);
+        result = CalculationTools.USDtoBTC(pesos, test);
       } else if (widget.selection == "Bitcoin") {
-        result = CalculationTools.BCTtoUSD(pesos);
+        result = CalculationTools.BTCtoUSD(pesos, test);
       }
       return result;
     });
@@ -129,11 +132,24 @@ class _USDConversionState extends State<USDConversion> {
               style: ButtonStyle(),
               child: Text('Calculate', style: TextStyle(fontSize: 15))),
           SizedBox(height: 25),
-          Text(
-            'Conversion Result: ' + result,
-            style: TextStyle(fontSize: 18),
-            key: Key('converted'),
-          )
+          FutureBuilder<double>(
+            key: Key('API'),
+            future: conversion,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                converted = snapshot.data;
+                test = snapshot.data.toString();
+                return Text(
+                  'Conversion Result: ' + result,
+                  style: TextStyle(fontSize: 18),
+                  key: Key('converted'),
+                );
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              return CircularProgressIndicator();
+            },
+          ),
         ],
       ),
     );

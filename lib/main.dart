@@ -1,5 +1,6 @@
 import 'package:bitcoin_calculator/usdConversion.dart';
 import 'package:flutter/material.dart';
+import 'calc_tools.dart';
 
 void main() => runApp(MyApp());
 

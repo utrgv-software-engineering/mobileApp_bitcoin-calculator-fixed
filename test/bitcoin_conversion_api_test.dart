@@ -24,14 +24,15 @@ main() {
       expect(conversion, 28536.0012);
     });
 
-    test('throws an exception if the http call completes with an error', () {
+    test('throws an exception if the http call completes with an error',
+        () async {
       final client = MockClient();
       var url =
           Uri.parse('https://api.coindesk.com/v1/bpi/currentprice/usd.json');
       when(client.get(url))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(CalculationTools.fetchConversion(client), isA<Exception>());
-    }, skip: true);
+      expect(CalculationTools.fetchConversion(client), throwsException);
+    });
   });
 }

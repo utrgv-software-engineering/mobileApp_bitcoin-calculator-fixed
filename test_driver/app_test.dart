@@ -3,15 +3,6 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  // group('Counter App', () {
-  //   // First, define the Finders and use them to locate widgets from the
-  //   // test suite. Note: the Strings provided to the `byValueKey` method must
-  //   // be the same as the Strings we used for the Keys in step 1.
-  //   final counterTextFinder = find.byValueKey('counter');
-  //   final buttonFinder = find.byValueKey('increment');
-
-  // final conversionTextFinder = find.byValueKey('API');
-
   FlutterDriver driver;
 
   // Connect to the Flutter driver before running any tests.
@@ -25,13 +16,6 @@ void main() {
       driver.close();
     }
   });
-  // });
-
-  // group('Bitcoin Conversion API Call', () {
-  //   test('user inputs a value', () async {
-  //     expect(await driver.getText(conversionTextFinder), 'Hello, testing');
-  //   }, skip: true);
-  // });
 
   final conversionTextFinder = find.byValueKey('converted');
 
@@ -92,12 +76,10 @@ void main() {
         await driver.enterText('1');
         await driver.tap(calculate);
 
-        //final result = find.byValueKey('converted');
-
         expect(await driver.getText(conversionTextFinder),
-            'Conversion Result: 0.000036BTC');
+            'Conversion Result: 0.000035BTC');
+        await driver.tap(back);
       },
-      skip: true,
     );
     test('User should be able to enter value to convert from BTC to USD',
         () async {
@@ -106,9 +88,6 @@ void main() {
       final back = find.byValueKey('back-button');
       final inputField = find.byValueKey('input-field');
       final calculate = find.byValueKey('calc');
-      final conversionTextFinder = find.byValueKey('API');
-
-      await driver.tap(back);
 
       await driver.tap(secondOption);
 
@@ -118,11 +97,9 @@ void main() {
       await driver.enterText('1');
       await driver.tap(calculate);
 
-      //final result = find.byValueKey('converted');
-
       expect(await driver.getText(conversionTextFinder),
-          'Conversion Result: 27626.80USD');
+          'Conversion Result: 28498.91USD');
       await driver.tap(back);
-    }, skip: true);
+    });
   });
 }

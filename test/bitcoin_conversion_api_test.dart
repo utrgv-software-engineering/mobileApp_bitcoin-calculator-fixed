@@ -18,7 +18,8 @@ main() {
       when(client.get(url))
           .thenAnswer((_) async => http.Response(fakeConversionAPIData, 200));
 
-      String conversion = await CalculationTools.fetchConversion(client);
+      //String conversion = await CalculationTools.fetchConversion(client);
+      double conversion = await CalculationTools.fetchConversion(client);
       expect(conversion, isA<String>());
       expect(conversion, "28,536.0012");
     });

@@ -1,7 +1,6 @@
 import 'package:bitcoin_calculator/calc_tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'api_call.dart';
 import 'package:http/http.dart' as http;
 
 import 'config/globals.dart';
@@ -20,9 +19,11 @@ class _USDConversionState extends State<USDConversion> {
   int userInput = 0;
   String result = '';
   String pesos = '';
-  String converted = '';
+  String test = '';
 
-  Future<String> conversion;
+  double converted = 0;
+
+  Future<double> conversion;
 
   @override
   void initState() {
@@ -54,9 +55,9 @@ class _USDConversionState extends State<USDConversion> {
   void setst8() {
     setState(() {
       if (widget.selection == "Dollars") {
-        result = CalculationTools.USDtoBTC(pesos);
+        result = CalculationTools.USDtoBTC(pesos, test);
       } else if (widget.selection == "Bitcoin") {
-        result = CalculationTools.BCTtoUSD(pesos, getPrice);
+        result = CalculationTools.BTCtoUSD(pesos, test);
       }
       return result;
     });
@@ -131,24 +132,25 @@ class _USDConversionState extends State<USDConversion> {
               style: ButtonStyle(),
               child: Text('Calculate', style: TextStyle(fontSize: 15))),
           SizedBox(height: 25),
-          FutureBuilder<String>(
+          FutureBuilder<double>(
             key: Key('API'),
             future: conversion,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 converted = snapshot.data;
-                return Text(converted);
+                test = snapshot.data.toString();
+                //return Text(CalculationTools.fetchConversion(pesos, test));
+                return Text(
+                  'Conversion Result: ' + result,
+                  style: TextStyle(fontSize: 18),
+                  key: Key('converted'),
+                );
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
               return CircularProgressIndicator();
             },
-          )
-          // Text(
-          //   'Conversion Result: ' + result,
-          //   style: TextStyle(fontSize: 18),
-          //   key: Key('converted'),
-          // )
+          ),
         ],
       ),
     );

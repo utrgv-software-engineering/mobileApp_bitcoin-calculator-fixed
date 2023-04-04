@@ -3,15 +3,6 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  // group('Counter App', () {
-  //   // First, define the Finders and use them to locate widgets from the
-  //   // test suite. Note: the Strings provided to the `byValueKey` method must
-  //   // be the same as the Strings we used for the Keys in step 1.
-  //   final counterTextFinder = find.byValueKey('counter');
-  //   final buttonFinder = find.byValueKey('increment');
-
-  // final conversionTextFinder = find.byValueKey('API');
-
   FlutterDriver driver;
 
   // Connect to the Flutter driver before running any tests.
@@ -25,13 +16,6 @@ void main() {
       driver.close();
     }
   });
-  // });
-
-  // group('Bitcoin Conversion API Call', () {
-  //   test('user inputs a value', () async {
-  //     expect(await driver.getText(conversionTextFinder), 'Hello, testing');
-  //   }, skip: true);
-  // });
 
   final conversionTextFinder = find.byValueKey('converted');
 

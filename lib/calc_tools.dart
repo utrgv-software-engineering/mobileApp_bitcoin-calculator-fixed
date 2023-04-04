@@ -47,4 +47,3 @@ class CalculationTools {
 
 // 1 dollar = 0.000036BTC
 // 1 bitcoin = 27,626.80
-// double num1 = double.parse((12.3412).toStringAsFixed(2));
